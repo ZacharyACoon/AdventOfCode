@@ -1,4 +1,6 @@
-from aoc2020.common import puzzle_input, testing
+from aoc2020.common import puzzle_input
+from aoc2020.common import testing
+from aoc2020.common.utils import type_per_line
 from itertools import permutations
 import math
 import unittest
@@ -25,7 +27,7 @@ def find_product_of_sum_components(values, components=2, summation=2020):
 
 
 class Test(testing.TimedTestCase):
-    example_input1 = puzzle_input.type_per_line(puzzle_input.from_example(__file__, 1))
+    example_input1 = type_per_line(puzzle_input.from_example(__file__, 1))
 
     def test1_find_product_with_2(self):
         a = find_product_of_sum_components(self.example_input1, 2, 2020)
@@ -37,9 +39,9 @@ class Test(testing.TimedTestCase):
 
 
 if __name__ == "__main__":
-    unittest.main(exit=False)
+    testing.run_tests()
 
-    puzzle_input = [int(value) for value in puzzle_input.from_file_arg().splitlines()]
+    input = type_per_line(puzzle_input.from_file_arg())
 
-    print("Part 1:", find_product_of_sum_components(puzzle_input, 2, 2020))
-    print("Part 2:", find_product_of_sum_components(puzzle_input, 3, 2020))
+    print("Part 1:", find_product_of_sum_components(input, 2, 2020))
+    print("Part 2:", find_product_of_sum_components(input, 3, 2020))

@@ -16,7 +16,3 @@ def from_file_arg():
 def from_example(path, n):
     file = Path(path).parent / f"example_input{n}.txt"
     return from_file(file)
-
-
-def type_per_line(string, t=int):
-    return [t(line) for line in string.splitlines() if line]

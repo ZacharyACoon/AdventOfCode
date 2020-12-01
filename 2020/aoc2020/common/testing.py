@@ -1,3 +1,4 @@
+import unittest
 from unittest import TestCase
 import time
 
@@ -10,3 +11,7 @@ class TimedTestCase(TestCase):
         self._finish = time.time()
         self._elapsed = self._finish - self._start
         print(self.id(), f"{self._elapsed:.8f}")
+
+
+def run_tests():
+    unittest.main(exit=False, argv=[''])
