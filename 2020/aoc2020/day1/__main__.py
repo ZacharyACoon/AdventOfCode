@@ -3,7 +3,6 @@ from aoc2020.common import testing
 from aoc2020.common.utils import type_per_line
 from itertools import permutations
 import math
-import unittest
 
 
 # works, but not used
