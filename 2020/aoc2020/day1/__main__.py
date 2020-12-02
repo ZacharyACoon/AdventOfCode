@@ -42,5 +42,5 @@ if __name__ == "__main__":
 
     input = type_per_line(puzzle_input.from_file_arg())
 
-    print("Part 1:", find_product_of_sum_components(input, 2, 2020))
-    print("Part 2:", find_product_of_sum_components(input, 3, 2020))
+    print("Part day1:", find_product_of_sum_components(input, 2, 2020))
+    print("Part day2:", find_product_of_sum_components(input, 3, 2020))
