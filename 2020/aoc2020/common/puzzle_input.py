@@ -7,7 +7,7 @@ def from_file(file):
         return f.read()
 
 
-def from_file_arg():
+def from_arg_file():
     assert len(argv) > 1
     file = Path(argv[1])
     return from_file(file)
