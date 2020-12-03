@@ -1,3 +1,3 @@
 #!/bin/bash
 
-python -m "aoc2020.day${1}" "Puzzles/day${1}/input.txt"
+python -m "aoc2020.day${1}" "puzzles/day${1}/input.txt"
