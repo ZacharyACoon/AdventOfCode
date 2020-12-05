@@ -59,12 +59,12 @@ def validate_entry2(entry):
     return not bool(required_validations)
 
 
-def solve1(input):
+def part1(input):
     entries = partition_entries(input)
     return sum(map(validate_entry1, entries))
 
 
-def solve2(input):
+def part2(input):
     entries = partition_entries(input)
     return sum(map(validate_entry2, entries))
 
@@ -72,5 +72,5 @@ def solve2(input):
 if __name__ == "__main__":
     input = puzzle_input.from_arg_file()
 
-    print("Part 1:", solve1(input))
-    print("Part 2:", solve2(input))
+    print("Part 1:", part1(input))
+    print("Part 2:", part2(input))

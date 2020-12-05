@@ -23,12 +23,12 @@ def find_product_of_sum_components(values, components=2, summation=2020):
             return math.prod(combination)
 
 
-def solve1(input):
+def part1(input):
     input = type_per_line(input, int)
     return find_product_of_sum_components(input, 2, 2020)
 
 
-def solve2(input):
+def part2(input):
     input = type_per_line(input, int)
     return find_product_of_sum_components(input, 3, 2020)
 
@@ -37,5 +37,5 @@ if __name__ == "__main__":
     from aoc2020.common import puzzle_input
     input = puzzle_input.from_arg_file()
 
-    print("Part 1:", solve1(input))
-    print("Part 2:", solve2(input))
+    print("Part 1:", part1(input))
+    print("Part 2:", part2(input))
