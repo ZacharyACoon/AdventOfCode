@@ -1,3 +1,4 @@
+from aoc2020.common import puzzle_input
 import re
 
 
@@ -56,3 +57,20 @@ def validate_entry2(entry):
             else:
                 return False
     return not bool(required_validations)
+
+
+def solve1(input):
+    entries = partition_entries(input)
+    return sum(map(validate_entry1, entries))
+
+
+def solve2(input):
+    entries = partition_entries(input)
+    return sum(map(validate_entry2, entries))
+
+
+if __name__ == "__main__":
+    input = puzzle_input.from_arg_file()
+
+    print("Part 1:", solve1(input))
+    print("Part 2:", solve2(input))
