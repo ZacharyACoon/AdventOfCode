@@ -1,3 +1,4 @@
+import math
 
 
 given_slopes = [
@@ -26,3 +27,21 @@ def measure_slopes(slope_map, slopes):
     for slope in slopes:
         a = measure_slope(slope_map, *slope)
         yield a
+
+
+def solve1(input):
+    input = input.splitlines()
+    return measure_slope(input, 3, 1)
+
+
+def solve2(input):
+    input = input.splitlines()
+    return math.prod(measure_slopes(input, given_slopes))
+
+
+if __name__ == "__main__":
+    from aoc2020.common import puzzle_input
+    input = puzzle_input.from_arg_file()
+
+    print("Part 1:", solve1(input))
+    print("Part 2:", solve2(input))
