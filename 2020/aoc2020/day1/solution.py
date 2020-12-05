@@ -1,5 +1,6 @@
-from itertools import permutations
+from itertools import combinations
 import math
+from aoc2020.common.utils import type_per_line
 
 
 # works, but not used
@@ -17,6 +18,16 @@ def find_sum_pair(values, summation=2020):
 
 
 def find_product_of_sum_components(values, components=2, summation=2020):
-    for permutation in permutations(values, components):
-        if sum(permutation) == summation:
-            return permutation, math.prod(permutation)
+    for combination in combinations(values, components):
+        if sum(combination) == summation:
+            return math.prod(combination)
+
+
+def solve1(input):
+    input = type_per_line(input, int)
+    return find_product_of_sum_components(input, 2, 2020)
+
+
+def solve2(input):
+    input = type_per_line(input, int)
+    return find_product_of_sum_components(input, 3, 2020)
