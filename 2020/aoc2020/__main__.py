@@ -8,7 +8,13 @@ if __name__ == "__main__":
     assert len(sys.argv) > 1
     token = sys.argv[1]
 
-    for day in range(1, 26):
+    if len(sys.argv) > 2:
+        start = stop = int(sys.argv[2])
+    else:
+        start = 1
+        stop = 25
+
+    for day in range(start, stop + 1):
         try:
             solution = importlib.import_module(f"aoc2020.day{day}.solution")
         except ImportError:
