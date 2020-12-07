@@ -1,42 +1,38 @@
 import re
 
-# bags color coded
-# contain counts of other colored bags
+
+def sanitize(input):
+    return re.sub(r"(?: bags?)|(?:\.)", "", input)
 
 
 def parse_rules(input):
     inner_rules = {}
     outer_rules = {}
+    for line in sanitize(input).splitlines():
+        key, values = line.split(" contain ")
+        values = values.split(", ")
+        for value in values:
+            if not value == "no other":
+                count = int(value[0])
+                bag = value[2:]
+                if key not in inner_rules:
+                    inner_rules[key] = {}
 
-    for line in input.splitlines():
-        outer, inner = line.split(" bags contain ")
-        contents = re.sub(r"(?: bags?)|\.|\n", "", inner)
-        inner = contents.split(", ")
-        inner_count = {}
-        for bag in inner:
-            count = bag[0]
-            if count != "n":
-                bag = bag[2:]
-                inner_count[bag] = count
+                inner_rules[key][bag] = count
+
                 if bag not in outer_rules:
-                    outer_rules[bag] = [outer]
+                    outer_rules[bag] = [key]
                 else:
-                    outer_rules[bag].append(outer)
-        inner_rules[outer] = inner_count
+                    outer_rules[bag].append(key)
+
     return inner_rules, outer_rules
 
 
-def determine_outer(outer_rules, bag):
+def determine_outer_recursive(outer_rules, bag):
     if bag in outer_rules:
-        for shell in outer_rules[bag]:
-            print(shell)
-
-
-def determine_layer_recursive(layer_rules, bag):
-    if bag in layer_rules:
-        for layer in layer_rules[bag]:
-            yield layer
-            yield from determine_layer_recursive(layer_rules, layer)
+        for outer in outer_rules[bag]:
+            yield outer
+            yield from determine_outer_recursive(outer_rules, outer)
 
 
 def determine_inner_recursive(inner_rules, bag):
@@ -49,14 +45,17 @@ def determine_inner_recursive(inner_rules, bag):
 
 
 def part1(input):
-    inner_rules, outer_rules = parse_rules(input)
-    return len(set(determine_layer_recursive(outer_rules, "shiny gold")))
+    _, outer_rules = parse_rules(input)
+    possible_outer_layers = determine_outer_recursive(outer_rules, "shiny gold")
+    unique_outer_layers = set(possible_outer_layers)
+    count_unique_outer_layers = len(unique_outer_layers)
+    return count_unique_outer_layers
 
 
 def part2(input):
-    inner_rules, outer_rules = parse_rules(input)
-    print(inner_rules)
-    print(len(list(determine_inner_recursive(inner_rules, "shiny gold"))))
+    inner_rules, _ = parse_rules(input)
+    inner_items = list(determine_inner_recursive(inner_rules, "shiny gold"))
+    return len(inner_items)
 
 
 if __name__ == "__main__":
