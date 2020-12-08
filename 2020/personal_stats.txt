@@ -14,3 +14,5 @@ Score:
   Geometric standard deviation: 1.60514
   Test of lognormality (Shapiro-Wilk): 0.979622 (p = 0.960537)
   Prediction interval (95%): 1682 - 11165 (lognormal dist.)
+
+* day1 is approximate rank accounting for starting 2 hours late.
