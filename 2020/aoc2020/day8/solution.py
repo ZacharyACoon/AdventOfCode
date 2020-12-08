@@ -1,79 +1,73 @@
 
 
-def parse_instructions(instructions):
+def parse_instruction(instruction):
+    operation = instruction[:3]
+    argument = int(instruction[4:])
+    return operation, argument
+
+
+# 0 - no error
+# 1 - repeating
+# 2 - operation not implemented
+
+def run_instructions(instructions):
     accumulator = 0
     offset = 0
+
+    trail = {}
     while offset < len(instructions):
-        line = instructions[offset]
-        operation = line[:3]
-        argument = int(line[4:])
+        error = 0
         increment = 1
+
+        if not offset in trail:
+            trail[offset] = True
+        else:
+            error = 1
+
+        operation, argument = parse_instruction(instructions[offset])
+
         if "acc" in operation:
             accumulator += argument
         elif "jmp" in operation:
             increment = argument
         elif "nop" in operation:
             pass
-        yield offset, accumulator
+        else:
+            error = 2
+
+        yield offset, accumulator, error
         offset += increment
 
 
-def run_instructions_until_repeat(instructions):
-    visited = {}
-    for offset, accumulator in parse_instructions(instructions):
-        if offset in visited:
-            raise IndexError
-        else:
-            visited[offset] = True
-            yield offset, accumulator
-
-
-# unused
-def get_furthest(instructions):
-    furthest = 0
-    for offset, _ in run_instructions_until_repeat(instructions):
-        if offset > furthest:
-            furthest = offset
-
-
-def track(input):
-    past = []
-    try:
-        for offset, _ in run_instructions_until_repeat(input):
-            past.append(offset)
-    except IndexError:
-        return past
-
-
 def part1(input):
-    for _, accumulator in run_instructions_until_repeat(input):
-        pass
-    return accumulator
+    last = 0
+    for _, accumulator, error in run_instructions(input):
+        if error == 1:
+            return last
+        else:
+            last = accumulator
 
 
 def part2(input):
-    for changed_offset in reversed(track(input)):
+    for change_offset in range(len(input)):
         input_copy = input[:]
-        if "jmp" in input_copy[changed_offset]:
-            print("flipping jmp to nop at", changed_offset)
-            input_copy[changed_offset] = input_copy[changed_offset].replace("jmp", "nop")
-        elif "nop" in input_copy[changed_offset]:
-            print("flipping nop to jmp at", changed_offset)
-            input_copy[changed_offset] = input_copy[changed_offset].replace("nop", "jmp")
+        if "jmp" in input_copy[change_offset]:
+            input_copy[change_offset] = input_copy[change_offset].replace("jmp", "nop")
+        elif "nop" in input_copy[change_offset]:
+            input_copy[change_offset] = input_copy[change_offset].replace("nop", "jmp")
         else:
-            continue
+            continue  # next loop
 
-        try:
-            for offset, accumulator in run_instructions_until_repeat(input_copy):
-                pass
-            print(accumulator)
-        except IndexError:
-            pass
+        for _, accumulator, error in run_instructions(input_copy):
+            if error == 1:
+                break
+        else:
+            return accumulator
 
 
 if __name__ == "__main__":
     from aoc2020.common import puzzle_input
     input = puzzle_input.from_arg_file().splitlines()
 
-    # print("Part 1:", part1(input))
+    print("Part 1:", part1(input))
     print("Part 2:", part2(input))
