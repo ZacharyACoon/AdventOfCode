@@ -19,11 +19,6 @@ def run_instructions(instructions):
         error = 0
         increment = 1
 
-        if not offset in trail:
-            trail[offset] = True
-        else:
-            error = 1
-
         operation, argument = parse_instruction(instructions[offset])
 
         if "acc" in operation:
@@ -35,17 +30,20 @@ def run_instructions(instructions):
         else:
             error = 2
 
-        yield offset, accumulator, error
         offset += increment
+
+        if not offset in trail:
+            trail[offset] = True
+        else:
+            error = 1
+
+        yield offset, accumulator, error
 
 
 def part1(input):
-    last = 0
     for _, accumulator, error in run_instructions(input):
         if error == 1:
-            return last
-        else:
-            last = accumulator
+            return accumulator
 
 
 def part2(input):
