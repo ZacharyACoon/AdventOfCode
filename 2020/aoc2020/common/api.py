@@ -2,6 +2,7 @@ import urllib.request
 import urllib.parse
 from functools import partial
 
+
 def get_base_endpoint(year, day):
     return f"https://adventofcode.com/{year}/day/{day}"
 
@@ -36,4 +37,4 @@ def submit_answer(partial_request, part, answer):
     request.method = "POST"
     request.data = urllib.parse.urlencode({"level": part, "answer": answer}).encode("ascii")
     with urllib.request.urlopen(request) as response:
-        return response.status
+        return response

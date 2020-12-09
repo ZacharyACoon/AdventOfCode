@@ -41,12 +41,14 @@ def run_instructions(instructions):
 
 
 def part1(input):
+    input = input.splitlines()
     for _, accumulator, error in run_instructions(input):
         if error == 1:
             return accumulator
 
 
 def part2(input):
+    input = input.splitlines()
     for change_offset in range(len(input)):
         input_copy = input[:]
         if "jmp" in input_copy[change_offset]:
@@ -65,7 +67,7 @@ def part2(input):
 
 if __name__ == "__main__":
     from aoc2020.common import puzzle_input
-    input = puzzle_input.from_arg_file().splitlines()
+    input = puzzle_input.from_arg_file()
 
     print("Part 1:", part1(input))
     print("Part 2:", part2(input))

@@ -16,14 +16,14 @@ def verify_preambles(size, data):
             preamble.append(number)
 
 
-def part1(size, input):
+def part1(input, size=25):
     input = list(map(int, input.splitlines()))
     result = verify_preambles(size, input)
     return result
 
 
-def part2(size, input):
-    invalid = part1(size, input)
+def part2(input, size=25):
+    invalid = part1(input, size)
     input = list(map(int, input.splitlines()))
     invalid_index = input.index(invalid)
 
@@ -38,5 +38,5 @@ if __name__ == "__main__":
     from aoc2020.common import puzzle_input
     input = puzzle_input.from_arg_file()
 
-    print("Part 1:", part1(25, input))
-    print("Part 2:", part2(25, input))
+    print("Part 1:", part1(input, 25))
+    print("Part 2:", part2(input, 25))

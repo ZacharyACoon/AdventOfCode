@@ -31,12 +31,13 @@ if __name__ == "__main__":
         answer1 = solution.part1(input)
         print("    Part 1:", answer1)
         print("        submitting")
-        time.sleep(1)  # respectful rate limit
-        response = api.submit_answer(partial_request, 1, answer1)
-        print("        ", api.submit_answer(partial_request, 2, answer1))
+        time.sleep(5)  # respectful rate limit
+        result = api.submit_answer(partial_request, 1, answer1)
+        print("        ", result.status)
 
         answer2 = solution.part2(input)
         print("    Part 2:", answer2)
         print("        submitting")
         time.sleep(1)  # respectful rate limit
-        print("        ", api.submit_answer(partial_request, 2, answer2))
+        result = api.submit_answer(partial_request, 2, answer2)
+        print("        ", result.status)
