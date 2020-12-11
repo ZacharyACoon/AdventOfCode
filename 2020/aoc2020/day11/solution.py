@@ -121,7 +121,7 @@ def part2(input):
     while True:
         seats, changes = flip_seats2(seats, adjacency_offsets, width)
         flips += 1
-        print(flips)
+        # print(flips)
         # print()
         # print("".join(seats))
         # raw_input("...")

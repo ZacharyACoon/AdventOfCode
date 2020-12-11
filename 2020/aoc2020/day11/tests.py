@@ -7,13 +7,13 @@ examples = puzzle_input.from_examples(__file__)  # list of stripped str
 
 
 class Test(testing.TimedTestCase):
-    def test1_part1_example1(self):
+    def test_part1_example1(self):
         self.assertEqual(37, solution.part1(examples[0]))
 
-    def test2_part2_example1(self):
+    def test_part2_example1(self):
         self.assertEqual(26, solution.part2(examples[0])[1])
 
-    def test3_part2_example1_result(self):
+    def test_part2_example1_result(self):
         self.assertEqual(
             examples[1],
             "".join(solution.part2(examples[0])[0])
