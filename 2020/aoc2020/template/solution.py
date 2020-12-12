@@ -1,16 +1,29 @@
+import unittest
+from aoc2020.common import puzzle_input
+from aoc2020.common.testing import TimedTestCase
+from aoc2020.common.solution import Solution
 
 
-def part1(input):
-    pass
+class Solution(Solution):
+    def part1(self, input):
+        pass
+
+    def part2(self, input):
+        pass
 
 
-def part2(input):
-    pass
+class Test(TimedTestCase):
+    examples = puzzle_input.from_examples(__file__)  # list of stripped str
+
+    def test1_part1_example1(self):
+        # self.assertEqual(0, solution.part1(self.examples[0]))
+        pass
 
 
 if __name__ == "__main__":
-    from aoc2020.common import puzzle_input
+    unittest.main()
     input = puzzle_input.from_arg_file()
 
-    print("Part 1:", part1(input))
-    print("Part 2:", part2(input))
+    solution = Solution()
+    print("Part 1:", solution.part1(input))
+    print("Part 2:", solution.part2(input))

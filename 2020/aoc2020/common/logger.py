@@ -19,9 +19,12 @@ class DefaultFormatter(ISO8601UTCTimeFormatter):
     pass
 
 
-def get_logger(name=None):
-    logger = logging.getLogger(name=name)
-    return logger
+class Log:
+    def __init__(self, logger=None):
+        if isinstance(logger, logging.Logger):
+            self.log = logger.getChild(self.__class__.__name__)
+        else:
+            self.log = logging.getLogger(self.__class__.__name__)
 
 
 logging.basicConfig(format=default_format)
