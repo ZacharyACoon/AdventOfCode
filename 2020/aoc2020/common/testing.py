@@ -3,6 +3,7 @@ import time
 
 
 class TimedTestCase(TestCase):
+
     def setUp(self) -> None:
         self._start = time.time()
 

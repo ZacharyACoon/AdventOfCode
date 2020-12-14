@@ -2,6 +2,7 @@ import unittest
 from aoc2020.common import puzzle_input
 from aoc2020.common.testing import TimedTestCase
 from aoc2020.common.solution import Solution
+from aoc2020.common.cli import args
 
 
 class Solution(Solution):
@@ -27,3 +28,4 @@ if __name__ == "__main__":
     solution = Solution()
     print("Part 1:", solution.part1(input))
     print("Part 2:", solution.part2(input))
+    print(args)

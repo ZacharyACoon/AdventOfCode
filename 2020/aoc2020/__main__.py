@@ -1,7 +1,17 @@
 import importlib
 from aoc2020.common import api
+from aoc2020.common.cli import args
 import sys
 import time
+from html.parser import HTMLParser
+
+
+if __name__ == "__main__":
+    print(args)
+    a = api.API()
+    a.get_puzzle(2020, 12)
+    print(a.get_examples(2020, 12))
+    quit()
 
 
 if __name__ == "__main__":

@@ -4,6 +4,7 @@ from aoc2020.common.testing import TimedTestCase
 from aoc2020.common.solution import Solution
 import re
 import math
+from aoc2020.common.cli import args
 
 
 def parse_instructions(input):
@@ -87,7 +88,7 @@ class Solution(Solution):
         return abs(sx - x) + abs(sy - y)
 
 
-class Test(TimedTestCase):
+class Test1(TimedTestCase):
     examples = puzzle_input.from_examples(__file__)  # list of stripped str
 
     def test1_part1_example1(self):
@@ -98,7 +99,8 @@ class Test(TimedTestCase):
 
 
 if __name__ == "__main__":
-    # unittest.main()
+    unittest.main(argv=[__file__], verbosity=0, exit=False)
+    print(args)
     input = puzzle_input.from_arg_file()
 
     solution = Solution()
