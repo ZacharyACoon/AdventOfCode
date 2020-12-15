@@ -61,17 +61,26 @@ class Solution(Solution):
 
     def part2(self, input):
         timestamp, busses = parse_lines(input)
-        busses_incremented = {}
+        bus_increments = {}
         i = 0
         for bus in busses:
             if bus != "x":
-                busses_incremented[int(bus)] = i
+                bus_increments[int(bus)] = i
             i += 1
-        print(busses_incremented)
-        return chinese_remainder(
-            busses_incremented.keys(),
-            busses_incremented.values(),
-        )
+        print(bus_increments)
+
+        busses = list(bus_increments.keys())
+        timestamp = 0
+        increment = busses[0]
+        for i, (bus, offset) in enumerate(bus_increments.items()):
+            increment = math.prod(busses[:i])
+            while True:
+                timestamp += increment
+                if (timestamp + offset) % bus == 0:
+                    print(timestamp, offset)
+                    increment = timestamp
+                    break
+        return timestamp
 
 
 class Test(TimedTestCase):
