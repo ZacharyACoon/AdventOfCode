@@ -100,7 +100,6 @@ def part2(data):
     rules = parse_rules(data)
     your_ticket = parse_your_ticket(data)
     nearby_tickets = parse_nearby_tickets(data)
-    print(f"Rules: {len(rules)}, Nearby Tickets: {len(nearby_tickets)}")
     from functools import partial
     valid_tickets = list(filter(partial(validate_ticket, rules), nearby_tickets))
     result = derive_offset_rule_map(rules, nearby_tickets)
@@ -125,7 +124,4 @@ if __name__ == "__main__":
     # unittest.main()
     data = puzzle_input.from_arg_file()
     print("Part 1:", part1(data))
-    import time
-    start = time.time()
     print("Part 2:", part2(data))
-    print(time.time() - start)
