@@ -53,17 +53,18 @@ def derive_offset_rule_map(rules, tickets, offset_rule_candidates=None):
         for o, v in enumerate(ticket):
             queued_changes[o] = offset_rule_candidates[o].copy()
             for rule in offset_rule_candidates[o]:
-                print(o, v, rule, end="")
+                # print(o, v, rule, end="")
                 validator = rules[rule]
                 if validator(v):
-                    print(" valid")
+                    pass
+                    # print(" valid")
                 else:
                     if not any(r(v) for r in rules.values()):
-                        print(" corrupted ticket!")
+                        # print(" corrupted ticket!")
                         corrupted_ticket = True
                         break
                     else:
-                        print(" invalid")
+                        # print(" invalid")
                         queued_changes[o].remove(rule)
         if not corrupted_ticket:
             offset_rule_candidates.update(queued_changes)
@@ -103,11 +104,8 @@ def part2(data):
     from functools import partial
     valid_tickets = list(filter(partial(validate_ticket, rules), nearby_tickets))
     result = derive_offset_rule_map(rules, nearby_tickets)
-    [print(thing) for thing in result.items()]
     result = reduce_offset_candidates(result)
-    [print(thing) for thing in result.items()]
     rule_offsets = translate_candidates_to_offsets(result)
-    print(rule_offsets)
     departure_str_offsets = [offset for rule, offset in rule_offsets.items() if rule.startswith("departure")]
     departure_values = [your_ticket[offset] for offset in departure_str_offsets]
     return math.prod(departure_values)
@@ -127,4 +125,7 @@ if __name__ == "__main__":
     # unittest.main()
     data = puzzle_input.from_arg_file()
     print("Part 1:", part1(data))
+    import time
+    start = time.time()
     print("Part 2:", part2(data))
+    print(time.time() - start)
