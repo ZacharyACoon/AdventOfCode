@@ -24,12 +24,13 @@ def parse_active_coordinates(data):
     return coordinates, x1, x2, y1, y2, z1, z2
 
 
-def get_neighbor_coordinates(x, y, z):
-    for _z in range(z-1, z+2):
-        for _y in range(y-1, y+2):
-            for _x in range(x-1, x+2):
-                if (x, y, z) != (_x, _y, _z):
-                    yield _x, _y, _z
+def get_neighbor_coordinates(coordinates, things=None):
+    if len(coordinates) == 1:
+        for thing in range(coordinates[0]-1, coordinates[0]+2):
+            yield *things, thing
+    else:
+        for thing in range(coordinates[0]-1, coordinates[0]+2):
+            yield from get_neighbor_coordinates(coordinates[1:], things=(thing,))
 
 
 def count_neighbors(tesseract, x, y, z):
@@ -98,18 +99,22 @@ def part1(data, cycles=6):
 
 
 def part2(data):
-    pass
+    for thing in get_neighbor_coordinates((3, 3, 3)):
+        print(thing)
 
 
 class Test(unittest.TestCase):
     examples = puzzle_input.from_examples(__file__)  # list of stripped str
 
-    def test1_part1_example1(self):
-        self.assertEqual(112, part1(self.examples[0]), 6)
+    # def test1_part1_example1(self):
+    #     self.assertEqual(112, part1(self.examples[0]), 6)
+
+    def test2_part2_example(self):
+        part2(self.examples[0])
 
 
 if __name__ == "__main__":
     # unittest.main()
     data = puzzle_input.from_arg_file()
-    print("Part 1:", part1(data))
-    print("Part 2:", part2(data))
+    # print("Part 1:", part1(data))
+    # print("Part 2:", part2(data))
