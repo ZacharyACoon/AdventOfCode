@@ -57,8 +57,7 @@ def part2(instructions):
     for instruction in instructions:
         direction, value = instruction.split(" ")
         value = int(value)
-        if hasattr(s, direction):
-            getattr(s, direction)(value)
+        getattr(s, direction)(value)
         print(direction, value, s)
     return s.x * s.y
 
