@@ -2,64 +2,43 @@ import unittest
 from aoc2021.common import puzzle_input
 
 
-# ∑
-def sigma(values):
-    v = 1
-    for value in values:
-        v *= value
-    return v
-
-
 def part1(instructions):
-    # x, y
-    coordinates = [0, 0]
-    direction_map = {
-        "forward": (0, 1),
-        "backward": (0, -1),
-        "up": (1, -1),
-        "down": (1, 1),
-    }
+    x = 0
+    y = 0
     for instruction in instructions:
         direction, value = instruction.split(" ")
         value = int(value)
-        coordinate, multiplier = direction_map[direction]
-        coordinates[coordinate] += multiplier * value
-        # print(direction, value, coordinates)
-    return sigma(coordinates)
+        if direction == "up":
+            x -= value
+        elif direction == "down":
+            x += value
+        elif direction == "forward":
+            y += value
+        elif direction == "backward":
+            y -= value
 
-
-class Sub:
-    def __init__(self):
-        self.x = 0
-        self.y = 0
-        self.aim = 0
-
-    def __repr__(self):
-        return f"Sub({self.x}, {self.y}, {self.aim})"
-
-    def up(self, v):
-        self.aim -= v
-
-    def down(self, v):
-        self.aim += v
-
-    def forward(self, v):
-        self.x += v
-        self.y += self.aim * v
-
-    def backward(self, v):
-        self.x -= v
-        self.y -= self.aim * v
+    return x * y
 
 
 def part2(instructions):
-    s = Sub()
+    x = 0
+    y = 0
+    aim = 0
     for instruction in instructions:
         direction, value = instruction.split(" ")
         value = int(value)
-        getattr(s, direction)(value)
-        print(direction, value, s)
-    return s.x * s.y
+        if direction == "up":
+            aim -= value
+        elif direction == "down":
+            aim += value
+        elif direction == "forward":
+            x += value
+            y += aim * value
+        elif direction == "backward":
+            x -= value
+            y -= aim * value
+
+    return x * y
 
 
 class Test(unittest.TestCase):
