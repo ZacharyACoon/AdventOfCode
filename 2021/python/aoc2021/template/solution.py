@@ -14,8 +14,12 @@ class Test(unittest.TestCase):
     examples = puzzle_input.from_examples(__file__)  # list of stripped str
 
     def test1_part1_example1(self):
-        # self.assertEqual(0, solution.part1(self.examples[0]))
-        pass
+        example = self.examples[0]
+        self.assertEqual(0, part1(example))
+
+    def test2_part2_example1(self):
+        example = self.examples[0]
+        self.assertEqual(0, part2(example))
 
 
 if __name__ == "__main__":
