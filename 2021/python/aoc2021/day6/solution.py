@@ -1,43 +1,48 @@
 import unittest
+from aoc2021.common.testing import TimedTestCase
 from aoc2021.common import puzzle_input
 
 
-def part1(data, days=80):
-    frame = list(map(int, data.split(",")))
-    for day in range(days):
-        new_frame = []
-        for fish in frame:
-            fish -= 1
-            if fish < 0:
-                fish = 6
-                new_frame.append(fish)
-                new_frame.append(8)
-            else:
-                new_frame.append(fish)
-        frame = new_frame
-    return len(frame)
+def parse_fish(data):
+    return list(map(int, data.split(",")))
 
 
-def part2(data, days=256):
-    fish = list(map(int, data.split(",")))
+def map_fish_age_to_count(fish):
     fish_counts = dict(zip(range(9), [0]*9))
     for f in fish:
         fish_counts[f] += 1
-    print(fish_counts)
+    return fish_counts
 
+
+def age_fish(fish_counts, days):
+    frame = fish_counts
     for day in range(days):
-        new_fish_counts = dict(zip(range(9), [0]*9))
-        for k, v in fish_counts.items():
+        new_frame = map_fish_age_to_count([])
+        for k, v in frame.items():
             if k == 0:
-                new_fish_counts[6] += v
-                new_fish_counts[8] += v
+                new_frame[6] += v
+                new_frame[8] += v
             else:
-                new_fish_counts[k-1] += v
-        fish_counts = new_fish_counts
+                new_frame[k-1] += v
+        frame = new_frame
+    return frame
+
+
+def part1(data, days=80):
+    fish = parse_fish(data)
+    fish_counts = map_fish_age_to_count(fish)
+    fish_counts = age_fish(fish_counts, days)
     return sum(fish_counts.values())
 
 
-class Test(unittest.TestCase):
+def part2(data, days=256):
+    fish = parse_fish(data)
+    fish_counts = map_fish_age_to_count(fish)
+    fish_counts = age_fish(fish_counts, days)
+    return sum(fish_counts.values())
+
+
+class Test(TimedTestCase):
     def test1_part1_example1(self):
         example = "3,4,3,1,2"
         self.assertEqual(26, part1(example, 18))
