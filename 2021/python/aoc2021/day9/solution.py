@@ -75,7 +75,6 @@ def identify_basin(heights, width, height, p, basin=None, depth=0):
     if basin is None:
         basin = set()
 
-    display(heights, basin, width, height, p)
     basin.add(p)
 
     # print(f"{depth*'  '}path={basin}, {p}, {heights.get(p)}")
