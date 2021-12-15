@@ -104,7 +104,7 @@ class Test(unittest.TestCase):
         self.assertEqual(1588, part1(example, steps=10))
 
     def test2_part2_example1(self):
-        example = self.examples[0]
+        example = puzzle_input.from_example(__file__, 1)
         self.assertEqual(2188189693529, part2(example, steps=40))
 
 

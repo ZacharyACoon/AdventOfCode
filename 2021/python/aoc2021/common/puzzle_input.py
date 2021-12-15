@@ -15,10 +15,7 @@ def from_arg_file():
     return from_file(file)
 
 
-def from_example(
-        path: str or Path,
-        n: int
-):
+def from_example(path: str or Path, n: int):
     """
     Reads a specific example file from directory.
     :param path:
@@ -33,9 +30,7 @@ def from_example(
     return from_file(path)
 
 
-def from_examples(
-        path: str or Path
-):
+def from_examples(path: str or Path):
     """
     Reads all examples into a list, following a glob.
     :param path:
