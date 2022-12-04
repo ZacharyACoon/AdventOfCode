@@ -35,4 +35,3 @@ def part2(example_input):
         priority_total += determine_priority(intersection)
 
     return priority_total
-
