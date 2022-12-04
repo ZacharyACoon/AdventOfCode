@@ -1,4 +1,4 @@
-from aoc import cli
+from aoc.common import cli
 
 
 if __name__ == "__main__":
