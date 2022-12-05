@@ -10,11 +10,16 @@ from pathlib import Path
 @click.argument("day", type=click.IntRange(1, 25))
 @click.pass_context
 def cli(ctx, documentation_path, year, day):
+    documentation_path = Path(documentation_path)
+    year = str(year)
+    day = f"{day:02d}"
+
     ctx.obj = SimpleNamespace(
-        documentation_path=Path(documentation_path),
-        year=str(year),
-        day=f"{day:02d}",
-        module=f"aoc.year{year}.day{day:02d}"
+        year=year,
+        day=day,
+        documentation_path=documentation_path,
+        puzzle_input_path=documentation_path / year / f"{day}_puzzle_input.txt",
+        module=f"aoc.year{year}.day{day}"
     )
 
 
@@ -25,11 +30,9 @@ def skeleton(ctx):
 
     ctx = ctx.obj
     # skeleton documentation
-    year_path = ctx.documentation_path / ctx.year
-    day_markdown_path = year_path / f"{ctx.day}.md"
+    day_markdown_path = ctx.documentation_path / ctx.year / f"{ctx.day}.md"
     day_markdown_path.touch(exist_ok=True)
-    day_puzzle_input_path = year_path / f"{ctx.day}_puzzle_input.txt"
-    day_puzzle_input_path.touch(exist_ok=True)
+    ctx.puzzle_input_path.touch(exist_ok=True)
 
     # skeleton source
     source_day_template_directory = Path(__file__).parent / f"day_template"
@@ -49,10 +52,13 @@ def test(ctx):
 
 @cli.command()
 @click.pass_context
-@click.argument("input_file", type=click.File("r"))
+@click.argument("input_file", type=click.Path(), required=False, default=None)
 def solve(ctx, input_file):
-    input = input_file.read()
-    solution_module = importlib.import_module(f"{ctx.obj.module}.solution")
+    ctx = ctx.obj
+    if input_file is None:
+        input_file = ctx.documentation_path / ctx.year / f"{ctx.day}_puzzle_input.txt"
+    input = Path(input_file).read_text()
+    solution_module = importlib.import_module(f"{ctx.module}.solution")
     for p in range(2):
         print(f"Part {p}")
         part_result = getattr(solution_module, f"part{p+1}")(input)

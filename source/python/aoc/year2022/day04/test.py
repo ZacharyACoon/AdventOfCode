@@ -7,6 +7,6 @@ class Test(TestCase):
         output = solution.part1(self.example_input1)
         assert output == 2
 
-    # def test2_part2(self):
-        # output = solution.part2(self.example_input1)
-        # assert output == 0
+    def test2_part2(self):
+        output = solution.part2(self.example_input1)
+        assert output == 4

@@ -12,7 +12,7 @@ def parse_input(input: str):
     return pairs
 
 
-def contains_each_other(pair):
+def bidirectional_total_overlap(pair):
     a, b = pair
     a1, a2 = a
     b1, b2 = b
@@ -25,11 +25,22 @@ def contains_each_other(pair):
     return False
 
 
+def bidirectional_overlap(pair):
+    a, b = pair
+    a1, a2 = a
+    b1, b2 = b
+    if a1 <= b1 <= a2:
+        return True
+    elif b1 <= a1 <= b2:
+        return True
+    return False
+
+
 def part1(example_input):
     pairs = parse_input(example_input)
-    return sum(map(contains_each_other, pairs))
-
+    return sum(map(bidirectional_total_overlap, pairs))
 
 
 def part2(example_input):
-    pass
+    pairs = parse_input(example_input)
+    return sum(map(bidirectional_overlap, pairs))
