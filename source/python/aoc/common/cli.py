@@ -61,7 +61,7 @@ def solve(ctx, input_file):
     input = Path(input_file).read_text()
     solution_module = importlib.import_module(f"{ctx.obj.module}.solution")
     for p in range(2):
-        print(f"Part {p}")
+        print(f"Part {p+1}")
         part_result = getattr(solution_module, f"part{p+1}")(input)
         print(part_result)
 
